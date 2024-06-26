@@ -99,7 +99,10 @@ class _VcPanelState extends State<VcPanel> {
         final List<dynamic> devices =
             jsonDecode(utf8.decode(response.bodyBytes));
         setState(() {
-          _inputDevices = devices.cast<String>();
+          _inputDevices = devices
+              .cast<String>()
+              .where((device) => device.contains('MME'))
+              .toList();
         });
       } else {
         throw Exception('Failed to load input devices');
@@ -117,7 +120,10 @@ class _VcPanelState extends State<VcPanel> {
         final List<dynamic> devices =
             jsonDecode(utf8.decode(response.bodyBytes));
         setState(() {
-          _outputDevices = devices.cast<String>();
+          _outputDevices = devices
+              .cast<String>()
+              .where((device) => device.contains('MME'))
+              .toList();
         });
       } else {
         throw Exception('Failed to load output devices');
@@ -513,23 +519,23 @@ class _VcPanelState extends State<VcPanel> {
                                   : 'Start Conversion'),
                             ),
                           ),
-                          SizedBox(
-                            width: 180,
-                            height: 60,
-                            child: ElevatedButton(
-                              onPressed: _toggleMonitoring,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    _data.isMonitoring ? Colors.purple : null,
-                                foregroundColor:
-                                    _data.isMonitoring ? Colors.white : null,
-                                textStyle: const TextStyle(fontSize: 18),
-                              ),
-                              child: Text(_data.isMonitoring
-                                  ? 'Stop Monitoring'
-                                  : 'Start Monitoring'),
-                            ),
-                          ),
+                          // SizedBox(
+                          //   width: 180,
+                          //   height: 60,
+                          //   child: ElevatedButton(
+                          //     onPressed: _toggleMonitoring,
+                          //     style: ElevatedButton.styleFrom(
+                          //       backgroundColor:
+                          //           _data.isMonitoring ? Colors.purple : null,
+                          //       foregroundColor:
+                          //           _data.isMonitoring ? Colors.white : null,
+                          //       textStyle: const TextStyle(fontSize: 18),
+                          //     ),
+                          //     child: Text(_data.isMonitoring
+                          //         ? 'Stop Monitoring'
+                          //         : 'Start Monitoring'),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],
